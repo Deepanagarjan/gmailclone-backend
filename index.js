@@ -8,7 +8,7 @@ import emailRoute from "./routes/email.route.js";
 
 dotenv.config({});
 connectDB();
-const PORT = 5000;
+const PORT = 5001;
 const app = express();
 
 // middleware
