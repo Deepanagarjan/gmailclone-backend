@@ -20,7 +20,7 @@ export const register = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const profilePhoto = `https://avatar.iran.liara.run/public/boy`;  // Sample profile photo URL
+        const profilePhoto = `https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fkirin_%2Fcircle-profile%2F&psig=AOvVaw3YbQj7NSpPJ3NmMjcyZW6H&ust=1727278174877000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPiFwufy24gDFQAAAAAdAAAAABAR`;  // Sample profile photo URL
         await User.create({
             fullname,
             email,
@@ -88,7 +88,7 @@ export const logout = async (req, res) => {
             maxAge: 0,            // Set the cookie to expire immediately
             httpOnly: true,       // Ensure the cookie is only accessible via HTTP (not JavaScript)
             sameSite: 'strict',   // Ensure CSRF protection by allowing the cookie to be sent only for same-site requests
-            secure: process.env.NODE_ENV === 'production',  // Only send cookie over HTTPS in production
+            secure: process.env.NODE_ENV === 'production' , // Only send cookie over HTTPS in production
         }).json({
             message: 'Logged out successfully.',
             success: true
@@ -99,3 +99,16 @@ export const logout = async (req, res) => {
     }
 };
 
+// const API_BASE_URL = process.env.NODE_ENV === 'production'
+//     ? 'https://gmailclone-frontend.vercel.app/'
+//     : '';
+
+// // Use API_BASE_URL in your fetch requests
+// const registerUser = async (userData) => {
+//     const response = await fetch(`${API_BASE_URL}/user/register`, {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(userData),
+//     });
+//     return await response.json();
+// };
