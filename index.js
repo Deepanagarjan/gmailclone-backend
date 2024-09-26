@@ -17,8 +17,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOptions = {
-    origin:'https://gmailclone-frontend.vercel.app',
-    credentials:true
+    origin:['https://gamilclone-frontendn.vercel.app'],
+    credentials:true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }
 app.use(cors(corsOptions));
 
