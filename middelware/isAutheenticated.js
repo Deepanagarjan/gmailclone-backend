@@ -17,8 +17,9 @@ const isAuthenticated = async (req, res, next) => {
         }
 
         // Verify the token
-        const decoded = await jwt.verify(token, process.env.SECRET_KEY);
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
+        // Check if the decoded token is valid
         if (!decoded) {
             return res.status(401).json({ message: "Invalid token" });
         }
@@ -29,7 +30,7 @@ const isAuthenticated = async (req, res, next) => {
         // Proceed to the next middleware or route handler
         next();
     } catch (error) {
-        console.error(error);
+        console.error("Authentication error:", error);  // Log the error for debugging
         return res.status(500).json({ message: "Internal server error", error: error.message });
     }
 };
