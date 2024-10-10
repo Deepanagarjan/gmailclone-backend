@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const corsOptions = {
-    origin:['https://gamilclone-frontendn.vercel.app'],
+    origin:['https://gamilclone-frontendn.vercel.app','http://localhost:5173'],
     credentials:true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
