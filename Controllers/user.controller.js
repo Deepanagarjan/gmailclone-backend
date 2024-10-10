@@ -72,7 +72,7 @@ export const login = async (req, res) => {
         }).json({
             message: `${user.fullname} logged in successfully.`,
             user,
-            success: true
+            success: true,token
         });
     } catch (error) {
         console.log(error);
@@ -99,16 +99,4 @@ export const logout = async (req, res) => {
     }
 };
 
-// const API_BASE_URL = process.env.NODE_ENV === 'production'
-//     ? 'https://gmailclone-frontend.vercel.app/'
-//     : '';
 
-// // Use API_BASE_URL in your fetch requests
-// const registerUser = async (userData) => {
-//     const response = await fetch(`${API_BASE_URL}/user/register`, {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(userData),
-//     });
-//     return await response.json();
-// };
