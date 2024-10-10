@@ -1,41 +1,35 @@
 import jwt from "jsonwebtoken";
 
-const isAuthenticated = (req, res, next) => {
+const isAuthenticated = async (req, res, next) => {
     try {
+        // Check if the Authorization header is present and properly formatted
         const authHeader = req.headers.authorization;
 
-        // Check for the Authorization header
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
-            return res.status(401).json({ message: "No token provided or invalid format" });
+            return res.status(401).json({ message: "No token provided or wrong format" });
         }
 
-        // Extract the token
+        // Extract the token from the Authorization header
         const token = authHeader.split(" ")[1];
 
         if (!token) {
             return res.status(401).json({ message: "User not authenticated" });
         }
 
-        // Verify the token and check its validity
-        jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-            if (err) {
-                // Handle token verification errors like expiration or invalid signature
-                const message =
-                    err.name === "TokenExpiredError"
-                        ? "Token has expired"
-                        : "Invalid token";
+        // Verify the token
+        const decoded = await jwt.verify(token, process.env.SECRET_KEY);
 
-                return res.status(401).json({ message });
-            }
+        if (!decoded) {
+            return res.status(401).json({ message: "Invalid token" });
+        }
 
-            // Attach user ID from the token payload to the request object
-            req.id = decoded.userId;
+        // Attach the decoded user ID to the request object for future use
+        req.id = decoded.userId;
 
-            // Proceed to the next middleware/route handler
-            next();
-        });
+        // Proceed to the next middleware or route handler
+        next();
     } catch (error) {
-        console.error("Authentication Error:", error);
+        console.error(error);
         return res.status(500).json({ message: "Internal server error", error: error.message });
     }
 };
